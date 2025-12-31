@@ -1,0 +1,15 @@
+.todo-con {
+  width: 100vw;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .todo-con {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .todo-con {
+    width: 50vw;
+  }
+}
