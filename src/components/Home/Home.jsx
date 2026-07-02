@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
+import React from "react";
+
 import Todo from "../Todo/Todo";
 import Navbar from "../Navbar/Navbar";
 import CategoryCarousel from "../categoriesCarosle/categoriesCarosel";
 import "./Home.css";
+import * as Styles from "./Styles";
 
 const Home = () => {
   const theme = useSelector((state) => state.Todo.theme);
@@ -12,7 +15,7 @@ const Home = () => {
   );
   if (selectedCategory !== "All" && selectedCategory !== "Completed") {
     todos = todos.filter((todo) => todo.category === selectedCategory);
-  }else if (selectedCategory === "Completed") {
+  } else if (selectedCategory === "Completed") {
     todos = todos.filter((todo) => todo.isCompleted);
   }
 
@@ -23,24 +26,28 @@ const Home = () => {
       todoEle.name.toLowerCase().includes(inputValue.toLowerCase())
     );
   }
-
   console.log("theme :", theme);
 
   return (
     <div
       className={`${
-        theme ? "bg-gray-100" : "bg-gray-900"
-      } min-h-screen flex flex-row justify-center`}
+        theme ? Styles.outerBgLightStyles : Styles.outerBgDarkStyles
+      } ${Styles.outerBaseStyles}`}
     >
       <div
         className={`${
-          theme ? "bg-white" : "bg-gray-700"
-        } todo-con  pl-[5vw] pr-[5vw] pt-[2vh] flex flex-col gap-[30px]`}
+          theme ? Styles.innerBgLightStyles : Styles.innerBgDarkStyles
+        } ${Styles.innerBaseStyles}`}
       >
         <Navbar />
         <CategoryCarousel />
         {todos.map((singleTodo) => {
-          return <Todo key={singleTodo.id} singleTodo={singleTodo} />;
+          return (
+            <React.Fragment key={singleTodo.id}>
+              <Todo singleTodo={singleTodo} />
+              <hr className="text-gray-500" />
+            </React.Fragment>
+          );
         })}
       </div>
     </div>
